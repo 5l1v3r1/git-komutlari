@@ -1,0 +1,246 @@
+
+------GİTHUB KULLANIMI------
+===========================================================================================
+#Git Kurulum
+apt-get install git 
+
+# kullanıcı bilgileri
+git config --global user.name "carms642"
+git config --global user.email "carms642@mail.com"
+===========================================================================================
+---Git KUlalnıcı Bilgileri Öğrenme
+git config --list
+cat ~/.gitconfig
+===========================================================================================
+--SSH Keygen Oluşturma---
+
+ssh-keygen
+cd ~/.ssh
+cat id_rsa.pub
+===========================================================================================
+--Github Yerelden Oluşturma--
+mkdir gityerel
+cd gityerel
+git init
+git add .
+git commit -m "first commit"
+git remote add origin 'link'
+# Ana depo varsa, ana depo güncellenir
+git push -u origin master 
+
+git push origin master
+===========================================================================================
+# git add (calisma alanindaki degisiklikleri indekse ekleme)
+git add file(s)     # belirtilen dosyalari eklemek
+git add .           # degisen ve yeni eklenen dosyalari eklemek
+git add -u          # degisen ve silinen dosyalari eklemek
+git add -A          # degisen, yeni eklenen ve silinen dosyalari eklemek
+
+===========================================================================================
+# git commit (indeks durumunu, yerel depoya kaydetmek)
+git commit -m "aciklama notu"
+
+# git push (yerel depodaki değişiklikleri, ana depoya aktarmak)
+git push
+
+# git pull (ana deponun son halini, çalışma alanına almak)
+git pull
+===========================================================================================
+# git diff (farkları görmek)
+- calisma alani ve indeks arasindaki farklar
+    git diff
+- calisma alani ve yerel depo arasindaki farklar
+    git diff HEAD
+- merge'den etkilenen dosyaların listesi'
+    git diff --name-status
+===========================================================================================
+# git status (calisma alaninin indeks ve yerel depoya gore durumu)
+git status
+
+# git log (commit loglarini gosterme)
+git log
+===========================================================================================
+# Çalışma alanında yapılan değişikliği geri almak
+- henüz add yapılmamışsa...
+    git checkout file(s)    # indeksteki kopyaya donme
+    git checkout .          # indeksteki kopyaya donme
+
+- add yapılmışsa, dolayısı ile indeksteki kopya da değişmiş...
+    git checkout HEAD file(s)   # yerel depodaki kopyaya donme
+    git checkout HEAD .         # yerel depodaki kopyaya donme
+
+# git reset (yapılan commit'i iptal etmek)
+git reset --hard HEAD~1     # 1 commit geri dönülür.
+                            # indeks eski haline gelir.
+                            # calisma alani eski haline gelir.
+
+git reset HEAD~1            # 1 commit geri dönülür.
+                            # indeks eski haline gelir.
+                            # calisma alanindaki degisiklikler korunur.
+
+git reset --soft HEAD~1     # 1 commit geri dönülür.
+                            # indeksteki degisiklikler korunur.
+                            # calisma alanindaki degisiklikler korunur.
+
+===========================================================================================
+# git revert (yapılan commit'i iptal eden patch ekleme)
+git revert <commit_id>
+
+
+# eski surumlere ulaşmak
+git log file1
+
+
+# Güncelleme 
+- push aşamasında aynı anda güncellenmiş dosyaların listesi yer alır.
+- Düzeltilmiş değişklikler commit edilir.
+    git add .
+    git commit -m "merged"
+    git push
+
+===========================================================================================
+# branch ile çalışma
+- branch oluşturma
+    git branch test
+===========================================================================================
+- branch listesi
+    git branch
+===========================================================================================
+- branch değiştirme
+    git checkout test
+    git checkout master
+===========================================================================================
+- branch merge
+    git checkout test
+    git commit -a
+    git checkout master
+    git commit -a
+    git merge test
+===========================================================================================
+- branch silme
+    git branch -d test
+===========================================================================================
+# depoyu klonlamak (klasör henuz yok, emc2-dev adıyla oluşacak)
+    git clone git://git.linuxcnc.org/git/emc2.git emc2-dev
+===========================================================================================
+# henüz yayınlanmaya hazır değişikliklerimiz varken depodan güncelleme
+    git stash save
+    git pull
+    git stash apply
+===========================================================================================
+# Birden fazla remote depo ile çalışmak
+- remote listesi
+    git remote -v
+===========================================================================================
+- remote ekleme
+    git remote add github git@github.com:emrahcom/www_emrah_com.git
+===========================================================================================
+- remote silme
+    git remote rm github
+===========================================================================================
+- remote push
+    git push origin master
+    git push github master
+===========================================================================================
+---GİT Komutları Açıklamalar---
+
+===========================================================================================
+ssh-keygen (enter enter de geç)
+
+
+	SSH ile Github Bağlanma
+cd ~/.ssh
+cat id_rsa.pub(buradaki key github hesabındaki ssh-keygen ekle)
+
+
+	Yeni bir Repositry oluşturmak için :
+
+cd GithubKlasor
+git init
+	Komutlarımız ile klasöre gidip, giti aktif ediyoruz.
+
+git add .
+
+git commit -m "ilk yorum"
+	ile commit ediyoruz. Yani uzak depoya yollamaya hazır hale geliyor.
+
+git remote add origin 'link'
+	Repoyu oluştururkene verdiği linki ‘link’ yerine yazıyoruz.
+
+git push -u origin master
+	komutu ile de projemizi git’e taşıyoruz.
+======================================================================================================================
+GİT KOMUTLARI
+git config : Genel git yapılandırmasi için kullanılır. Örneğin tüm git repolarında kullanacağınız kullanıcı adı ve e-mail bilgilerinizi buraya girebilirsiniz.
+======================================================================================================================
+Örnek:  git config –global user.name “Mert Simsek”
+                 git config –global user.email “isim@alan.com”
+======================================================================================================================
+git init : Bulunduğunuz dizine bir git repository’si açar, .git dizinini oluşturur.
+======================================================================================================================
+git clone : Uzak sunucudaki bir git repository’sini bilgisayarınıza kopyalamaya yarar. Aynı zaman da yerel bir git repo’su oluşturarak eğer izniniz varsa uzak sunucudaki git reposunda değişiklik yapabilirsiniz.
+Örnek:  git clone git@github.com:mertsimsek/test.git
+======================================================================================================================
+git add : Belirttiğiniz dosyayı çalışma dizininize ekler, commit edilmeye hazır hale getirir.
+Örnek: git add Main.java
+======================================================================================================================
+git rm : Belirttiğiniz dosyayı çalışma dizininizden siler, commit sırasından kaldırır.
+Örnek: git rm Main.java
+======================================================================================================================
+git commit : Çalışma dizinine eklenen tüm dosyaları yerel git reposuna ekler. Bulunduğunuz branch’i bir adım öteye götürür. Yorum eklenmesi mecburidir.
+Örnek: git commit -m “Calisma dizinindeki tum dosyalar commit edildi!”
+======================================================================================================================
+git status : Dizininizdeki dosyaların durumunu özetleyen bir yazı bastırır ekrana.
+Örnek: git status
+# On branch master
+#
+# Initial commit
+#
+# Untracked files:
+#   (use “git add <file>…” to include in what will be committed)
+#
+#    README
+nothing added to commit but untracked files present (use “git add” to track)
+======================================================================================================================
+git branch : Varolan branch’leri listeler. Eğer yanına branch ismi yazarsanız, yazdığınız isimde bir branch yaratır.
+
+git checkout : Branch’ler arası geçiş yapmaya yarar. Sonuna geçmek istediğiniz branch’in ismini yazmanız yeterlidir.
+Örnek: git checkout backendbranch
+
+git merge : Bir veya birden fazla branch’i şu an bulunduğunuz branch’e birleştirir. Eğer herhangi bir çakışma yoksa branch’leri birleştirdikten sonra commit yapar.
+Örnek: git merge backendbranch
+
+git reset : Çalışma dizininizi bir önceki commite sıfırlar.
+
+git pull : Uzakta bağlı olduğunuz git reposundaki dosyaları bilgisayarınıza indirir ve bulunduğunuz branch ile merge eder yani birleştirir.
+
+git push : Yerelde yaptığınız commit’leri uzaktaki git reposuna aktarır.
+
+git remote : Bağlı olduğunuz uzak git repo’larını gösterir. Devamına add ekleyerek yeni uzak git reposu ekleyebilirsiniz.
+Örnek: git remote add origin git@github.com:mertsimsek/test.git
+
+git log --oneline : 'dosyalar commit edilirken yazılın mesajlar'
+git log --oneline --stat : 'dosyalarda yapılan değişiklikleri, mesajları verir'
+git log --graph --decorate --oneline --all :'dosyalarda yapılan değişiklikleri, mesajları verir grafiksel olarak verir'
+
+git reset --hard :'son yaptığınız ancak henüz commit etmediğiniz değişiklikleri siler ve sizi son commit anına döndürür.'
+
+======================================================================================================================
+
+Örnek
+git add octofamily/octodog.txt
+git diff --staged  :hangi dosyalar üzerinde değişiklik yazpılmış 
+git reset octofamily/octodog.txt 
+git checkout -- octocat.txt :üstteki git resetleme işe yaradı fakat dosya hala orada, yaptığımız işlemleri geri almak için bu kod kullanılır
+git branch clean_up :branch çıkış
+git checkout clean_up
+git merge clean_up
+git branch -d clean_up : clean_up branch'ı silindi'
+git push :sunucuya verileri gönderdi
+======================================================================================================================
+
+
+
+
+
+
