@@ -1,1 +1,1 @@
-# git-komutlari
+Github Kurulum ve Kullanma Komutları
